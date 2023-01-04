@@ -150,7 +150,7 @@ export default function NavBar() {
                     </Button>
                 ))}
               </Box>
-              <Search>
+              <Search sx={{ display: { xs: 'none', md:'flex' }}}>
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
