@@ -3,10 +3,16 @@ import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import SearchIcon from '@mui/icons-material/Search';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from "react";
 import { styled, alpha } from '@mui/material/styles';
 
-export default function NavBar() {
+interface NavBarProps {
+    isLogged?: boolean;
+}
+
+export default function NavBar({ isLogged }: NavBarProps) {
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -18,7 +24,9 @@ export default function NavBar() {
         setAnchorEl(null);
     };
 
-    const pages = [["Iniciar Sesión", "/login"], ["Sobre nosotros", "/about"], ["Contacto", "/contact"]];
+    const pages = [(!isLogged ? ["Iniciar Sesión", "/login"] : ["Mi perfil", "/profile"]), ["Sobre nosotros", "/about"], ["Contacto", "/contact"]];
+
+    isLogged && pages.push(["Cerrar Sesión", "/logout"]);
 
     const Search = styled('div')(({ theme }) => ({
       position: 'relative',
@@ -63,8 +71,8 @@ export default function NavBar() {
     }));
 
     return (
-        <AppBar position="static" sx={{
-            backgroundColor: "#86E3CE",
+        <AppBar position="fixed" sx={{
+            backgroundColor: "#CCABD8",
         }}>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
@@ -77,9 +85,9 @@ export default function NavBar() {
                 sx={{
                   mr: 2,
                   display: { xs: 'none', md: 'flex' },
-                  fontFamily: 'monospace',
+                  fontFamily: 'VAG Rounded Next',
                   fontWeight: 700,
-                  letterSpacing: '.3rem',
+                  letterSpacing: '.5rem',
                   color: 'inherit',
                   textDecoration: 'none',
                 }}
@@ -132,7 +140,7 @@ export default function NavBar() {
                   mr: 2,
                   display: { xs: 'flex', md: 'none' },
                   flexGrow: 1,
-                  fontFamily: 'monospace',
+                  fontFamily: 'VAG Rounded Next',
                   fontWeight: 700,
                   letterSpacing: '.3rem',
                   color: 'inherit',
@@ -145,7 +153,7 @@ export default function NavBar() {
                 {pages.map(([page, url]) => (
                     <Button key={page} onClick={handleClose} sx={{ my: 2, color: 'white', display: 'block' }}>
                       <Link href={url}>
-                        <Typography>{page}</Typography>
+                        <Typography sx={{ fontWeight: 'bold', fontFamily: 'VAG Rounded Next' }}>{page}</Typography>
                       </Link>
                     </Button>
                 ))}
@@ -155,10 +163,18 @@ export default function NavBar() {
                   <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
-                  placeholder="Search…"
+                  placeholder="Buscar..."
                   inputProps={{ 'aria-label': 'search' }}
                 />
               </Search>
+              <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 4 }}>
+                <Link href="/cart">
+                  <ShoppingCartIcon sx={{ color: 'white', my: 2, mx: 1 }} />
+                </Link>
+                <Link href="/wishlist">
+                  <FavoriteIcon sx={{ color: 'white', my: 2, mx: 1 }} />
+                </Link>
+              </Box>
             </Toolbar>
           </Container>
         </AppBar>

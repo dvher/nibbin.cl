@@ -1,5 +1,5 @@
 import { Button, Grid, Stack } from "@mui/material";
-import NavBar from '../../components/NavBar';
+import NavBar from '@components/NavBar'
 export default function Ej() {
   return (
     <>
