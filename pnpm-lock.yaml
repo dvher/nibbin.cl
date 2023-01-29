@@ -11,9 +11,11 @@ specifiers:
   '@types/react-dom': 18.0.10
   eslint: 8.31.0
   eslint-config-next: 13.1.1
+  mui-one-time-password-input: ^1.0.4
   next: 13.1.1
   react: 18.2.0
   react-dom: 18.2.0
+  react-toastify: ^9.1.1
   typescript: 4.9.4
 
 dependencies:
@@ -27,9 +29,11 @@ dependencies:
   '@types/react-dom': 18.0.10
   eslint: 8.31.0
   eslint-config-next: 13.1.1_iukboom6ndih5an6iafl45j2fe
+  mui-one-time-password-input: 1.0.4_g2qhqczl4llrdlyw6kdsue26vu
   next: 13.1.1_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-toastify: 9.1.1_biqbaboplfbrettd7655fr4n2y
   typescript: 4.9.4
 
 packages:
@@ -1929,6 +1933,27 @@ packages:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
     dev: false
 
+  /mui-one-time-password-input/1.0.4_g2qhqczl4llrdlyw6kdsue26vu:
+    resolution: {integrity: sha512-fq6vNtTvMsijFCicW76EfanDOyKyjTkz7om+590y7ridWg1zXroWwCObtFwHIkCRNmgNRAlcyykzvpM8ccEOhQ==}
+    peerDependencies:
+      '@emotion/react': ^11.5.0
+      '@emotion/styled': ^11.3.0
+      '@mui/material': ^5.0.0
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+      react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
+      '@emotion/styled': 11.10.5_qvatmowesywn4ye42qoh247szu
+      '@mui/material': 5.11.2_lskpmcsdi7ipu6qpuapyu56ihm
+      '@types/react': 18.0.26
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /nanoid/3.3.4:
     resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -2179,6 +2204,17 @@ packages:
 
   /react-is/18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+    dev: false
+
+  /react-toastify/9.1.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-pkFCla1z3ve045qvjEmn2xOJOy4ZciwRXm1oMPULVkELi5aJdHCN/FHnuqXq8IwGDLB7PPk2/J6uP9D8ejuiRw==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      clsx: 1.2.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-transition-group/4.4.5_biqbaboplfbrettd7655fr4n2y:
