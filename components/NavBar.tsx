@@ -16,15 +16,33 @@ import AdbIcon from "@mui/icons-material/Adb";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 
-interface NavBarProps {
-  isLogged?: boolean;
-}
-
-export default function NavBar({ isLogged }: NavBarProps) {
+export default function NavBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [isLogged, setIsLogged] = useState(false);
+  const [_user, setUser] = useState("");
+
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_API_ADDR}/islogged`, {
+      credentials: "include",
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if(!res.ok) {
+        setIsLogged(false);
+        return;
+      }
+      res.json().then((data) => {
+        setIsLogged(true);
+        setUser(data.user);
+      });
+    });
+  }, []);
 
   const handleOpen = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

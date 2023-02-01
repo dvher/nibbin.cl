@@ -65,6 +65,7 @@ export default function Login() {
         "Content-Type": "application/json",
       },
       mode: "cors",
+      credentials: "include",
       body: JSON.stringify({
         email,
       }),
@@ -120,6 +121,7 @@ export default function Login() {
         "Content-Type": "application/json",
       },
       mode: "cors",
+      credentials: "include",
       body: JSON.stringify({
         otp: value,
         email,
@@ -174,6 +176,7 @@ export default function Login() {
         "Content-Type": "application/json",
       },
       mode: "cors",
+      credentials: "include",
       body: JSON.stringify({
         email,
         nombre,
@@ -276,7 +279,7 @@ export default function Login() {
                 <Typography variant="h5">Código de validación</Typography>
               </Grid>
               <Grid item>
-              <MuiOtpInput value={otp} onChange={onChangeOTP} length={6} placeholder="-" onComplete={submitOTP} />
+              <MuiOtpInput value={otp} onChange={onChangeOTP} length={6} placeholder="-" onComplete={submitOTP} TextFieldsProps={{ placeholder: '-', size: 'small' }} />
               </Grid>
             </Grid>
           </Box>
