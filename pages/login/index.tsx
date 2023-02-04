@@ -260,7 +260,6 @@ export default function Login() {
           </Grid>
         </form>
       </Grid>
-      <Button onClick={handleOpenOTP}>Open modal</Button>
       <Modal
         open={openOTP}
         onClose={handleCloseOTP}

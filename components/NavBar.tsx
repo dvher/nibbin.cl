@@ -210,6 +210,7 @@ export default function NavBar() {
                 placeholder="Buscar..."
                 inputProps={{ "aria-label": "search" }}
                 name="q"
+                required
               />
               <Button
                 type="submit"
