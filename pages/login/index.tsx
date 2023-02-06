@@ -28,6 +28,15 @@ const style = {
   p: 4,
 };
 
+function matchIsNumeric(text: string) {
+  const isNumber = !isNaN(+text)
+  return (isNumber || text === '')
+}
+
+const validateChar = (value: string, _index: number) => {
+  return matchIsNumeric(value)
+}
+
 export default function Login() {
   if (typeof window !== "undefined") document.title = "Iniciar Sesión";
 
@@ -44,7 +53,7 @@ export default function Login() {
   const [telefono, setTelefono] = useState("");
   const [tries, setTries] = useState(3);
   const handleOpenOTP = () => setOpenOTP(true);
-  const handleCloseOTP = () => setOpenOTP(false);
+  const handleCloseOTP = () => {setOpenOTP(false); setOtp(""); setTries(3);}
   const onChangeOTP = (value: string) => setOtp(value);
 
   const submitEmail = (e: FormEvent<HTMLFormElement>) => {
@@ -259,6 +268,8 @@ export default function Login() {
             </FormControl>
           </Grid>
         </form>
+        <Button onClick={() => setOpenRegister(true)} sx={{ mt: 2 }} > Open modal </Button>
+        <Button onClick={handleOpenOTP} sx={{ mt: 2 }} > Open modal </Button>
       </Grid>
       <Modal
         open={openOTP}
@@ -266,10 +277,7 @@ export default function Login() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 300,
-        }}
+        slots={{ backdrop: Backdrop }}
       >
         <Fade in={openOTP}>
           <Box sx={style}>
@@ -278,7 +286,7 @@ export default function Login() {
                 <Typography variant="h5">Código de validación</Typography>
               </Grid>
               <Grid item>
-              <MuiOtpInput value={otp} onChange={onChangeOTP} length={6} placeholder="-" onComplete={submitOTP} TextFieldsProps={{ placeholder: '-', size: 'small' }} />
+              <MuiOtpInput validateChar={validateChar} value={otp} onChange={onChangeOTP} length={6} placeholder="-" onComplete={submitOTP} TextFieldsProps={{ placeholder: '-', size: 'small' }} />
               </Grid>
             </Grid>
           </Box>
@@ -290,10 +298,7 @@ export default function Login() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 300,
-        }}
+        slots={{ backdrop: Backdrop }}
       >
         <Fade in={openRegister}>
           <Box sx={style}>

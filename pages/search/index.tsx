@@ -1,5 +1,6 @@
-import { Button, Grid, Stack } from "@mui/material";
+import { Button, Grid, Stack, Typography, Divider } from "@mui/material";
 import NavBar from "@components/NavBar";
+import ProductComponent from "@components/ProductComponent";
 import { GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -48,9 +49,9 @@ export default function Search({ products, query }: { products: Array<Product> |
         justifyContent="center"
         direction="column"
       >
-        <h1>No se encontraron resultados</h1>
+        <Typography variant="h3" sx={{ fontFamily: 'VAG Rounded Next' }}>No se encontraron resultados</Typography>
         <Stack spacing={2} direction="row">
-          <Button variant="contained" color="secondary" href="/">Volver al inicio</Button>
+          <Button variant="contained" color="secondary" href="/" sx={{ fontFamily: 'VAG Rounded Next' }}>Volver al inicio</Button>
         </Stack>
       </Grid>
     </>
@@ -66,7 +67,14 @@ export default function Search({ products, query }: { products: Array<Product> |
         justifyContent="center"
         direction="column"
       >
-        <h1>{products?.map(p => p.nombre)}</h1>
+        <Grid item>
+          <Typography variant="h3" sx={{ fontFamily: 'VAG Rounded Next' }}>Resultados de búsqueda para "<b>{query}</b>"</Typography>
+        </Grid>
+        <Grid item>
+          <Stack spacing={2} direction="row">
+            {products?.map(p => <ProductComponent key={p.id} id={p.id} nombre={p.nombre} descripcion={p.descripcion} precio={p.precio} descuento={p.descuento} stock={p.stock} imagen={p.imagen} />)}
+          </Stack>
+        </Grid>
       </Grid>
     </>
   );
