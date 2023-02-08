@@ -1,5 +1,7 @@
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, CardActionArea } from "@mui/material";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 type Product = {
     id: number;
@@ -9,11 +11,32 @@ type Product = {
     descuento: number;
     stock: number;
     imagen: string;
+    isfavorite: boolean;
 }
 
-export default function ProductComponent({ id, nombre, descripcion, precio, descuento, stock, imagen }: Product) {
+const setFavorite = (id: number, isfavorite: boolean) => {
+    if(isfavorite)
+        return;
+    fetch(`${process.env.NEXT_PUBLIC_API_ADDR}/products/${id}`,{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            idProducto: id,
+        }),
+        mode: 'cors',
+    }).then((res) => {
+        if (!res.ok) {
+            console.log('Error al agregar a favoritos');
+            return;
+        }
+    });
+}
+
+export default function ProductComponent({ id, nombre, descripcion, precio, descuento, stock, imagen, isfavorite }: Product) {
     return (
-        <Card sx={{ width: 345 }}>
+        <Card sx={{ maxWidth: 345 }}>
             <CardActionArea href={`/product/${id}`}>
                 <CardMedia
                     component="img"
@@ -35,7 +58,7 @@ export default function ProductComponent({ id, nombre, descripcion, precio, desc
                 </CardContent>
             </CardActionArea>
             <CardActions sx={{ justifyContent: 'flex-end' }}>
-                <Button size="small">Ver</Button>
+                <Button size="small" onClick={() => setFavorite(id, isfavorite)}>{!isfavorite ? <FavoriteBorderIcon /> : <FavoriteIcon />}</Button>
                 <Button size="small"><AddShoppingCartIcon /></Button>
             </CardActions>
         </Card>

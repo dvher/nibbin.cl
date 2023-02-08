@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const data = await res.json();
 
-  const products = data.products;
+  const products = data.products as Product;
 
   return {
     props: {
@@ -42,6 +42,7 @@ type Product = {
   descuento: number;
   stock: number;
   imagen: string;
+  isfavorite: boolean;
 }
 
 export default function Search({ products, query }: { products: Array<Product> | null, query: string }) {
@@ -74,14 +75,21 @@ export default function Search({ products, query }: { products: Array<Product> |
         alignItems="center"
         justifyContent="center"
         direction="column"
+        spacing={2}
+        sx={{ flexDirection: { xs: 'row', md: 'column' } }}
       >
-        <Grid item>
+        <Grid item xs={0} md={2} />
+        <Grid item xs={4} md={2} sx={{ marginTop: { xs: 10, md: 0 } }}>
           <Typography variant="h3" sx={{ fontFamily: 'VAG Rounded Next' }}>Resultados de búsqueda para "<b>{query}</b>"</Typography>
         </Grid>
-        <Grid item>
-          <Stack spacing={2} direction="row">
-            {products?.map(p => <ProductComponent key={p.id} id={p.id} nombre={p.nombre} descripcion={p.descripcion} precio={p.precio} descuento={p.descuento} stock={p.stock} imagen={p.imagen} />)}
-          </Stack>
+        <Grid item xs={8}>
+          <Grid container alignItems="center" justifyContent="center" direction="row" spacing={2} sx={{ flexDirection: { xs: "column", md: "row" } }}>
+            {products?.map(p => (
+            <Grid item xs={12} md={6} lg={Math.max(Math.floor(12 / products.length), 3)} key={p.id}>
+              <ProductComponent id={p.id} nombre={p.nombre} descripcion={p.descripcion} precio={p.precio} descuento={p.descuento} stock={p.stock} imagen={p.imagen} isfavorite={p.isfavorite} />
+            </Grid>
+            ))}
+          </Grid>
         </Grid>
       </Grid>
     </>
