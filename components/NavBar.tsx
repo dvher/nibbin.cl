@@ -289,7 +289,7 @@ export default function NavBar() {
               <FavoriteIcon sx={{ color: "white", my: 2, mx: 1, verticalAlign: "middle" }} />
             </Link>
           </Box>
-          {!isLogged ? (<Box sx={{ flexGrow: 0 }}>
+          {isLogged ? (<Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Opciones de usuario">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <AccountCircleIcon sx={{ color: "white", my: 2, mx: 1, verticalAlign: "middle" }} />

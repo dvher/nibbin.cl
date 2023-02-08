@@ -1,4 +1,4 @@
-import { Button, Grid, Stack, Typography, Divider } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import NavBar from "@components/NavBar";
 import ProductComponent from "@components/ProductComponent";
 import { GetServerSideProps } from "next";
@@ -14,6 +14,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_ADDR}/searchproducts?q=${query}`);
+
+  if(res.status !== 200) return {
+    props: {
+      products: null,
+      query: "",
+    },
+  };
+
   const data = await res.json();
 
   const products = data.products;
