@@ -17,7 +17,7 @@ type Product = {
 const setFavorite = (id: number, isfavorite: boolean) => {
     if(isfavorite)
         return;
-    fetch(`${process.env.NEXT_PUBLIC_API_ADDR}/products/${id}`,{
+    fetch(`${process.env.NEXT_PUBLIC_API_ADDR}/setfavorite`,{
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

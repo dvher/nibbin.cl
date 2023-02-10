@@ -71,23 +71,22 @@ export default function Search({ products, query }: { products: Array<Product> |
       <NavBar />
       <Grid
         container
-        height="100vh"
         alignItems="center"
         justifyContent="center"
         direction="column"
         spacing={2}
-        sx={{ flexDirection: { xs: 'row', md: 'column' } }}
+        sx={{ flexDirection: { xs: 'row', lg: 'column' }, marginTop: { xs: 0, lg: 10 } }}
       >
-        <Grid item xs={0} md={2} />
-        <Grid item xs={4} md={2} sx={{ marginTop: { xs: 10, md: 0 } }}>
+        <Grid item xs={0} lg={2} />
+        <Grid item xs={4} lg={2} sx={{ marginTop: { xs: 10, lg: 0 } }}>
           <Typography variant="h3" sx={{ fontFamily: 'VAG Rounded Next' }}>Resultados de búsqueda para "<b>{query}</b>"</Typography>
         </Grid>
         <Grid item xs={8}>
-          <Grid container alignItems="center" justifyContent="center" direction="row" spacing={2} sx={{ flexDirection: { xs: "column", md: "row" } }}>
-            {products?.map(p => (
-            <Grid item xs={12} md={6} lg={Math.max(Math.floor(12 / products.length), 3)} key={p.id}>
-              <ProductComponent id={p.id} nombre={p.nombre} descripcion={p.descripcion} precio={p.precio} descuento={p.descuento} stock={p.stock} imagen={p.imagen} isfavorite={p.isfavorite} />
-            </Grid>
+          <Grid container alignContent="center" justifyContent="center" direction="row" flexGrow={1} spacing={2}>
+            {products.map(p => (
+              <Grid item xs={"auto"} key={p.id}>
+                <ProductComponent id={p.id} nombre={p.nombre} descripcion={p.descripcion} precio={p.precio} descuento={p.descuento} stock={p.stock} imagen={p.imagen} isfavorite={p.isfavorite} />
+              </Grid>
             ))}
           </Grid>
         </Grid>
