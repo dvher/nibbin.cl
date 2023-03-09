@@ -8,13 +8,19 @@ import {
   Box,
   Fade,
   Backdrop,
+  ThemeProvider
 } from "@mui/material";
+import theme from '../../theme/theme';
 import NavBar from "@components/NavBar";
 import { FormEvent, useState } from "react";
 import { MuiOtpInput } from 'mui-one-time-password-input';
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
+import { Dayjs } from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -51,6 +57,7 @@ export default function Login() {
   const [usuario, setUsuario] = useState("");
   const [direccion, setDireccion] = useState("");
   const [telefono, setTelefono] = useState("");
+  const [nacimiento, setNacimiento] = useState<Dayjs | null>(null);
   const [tries, setTries] = useState(3);
   const handleOpenOTP = () => setOpenOTP(true);
   const handleCloseOTP = () => {setOpenOTP(false); setOtp(""); setTries(3);}
@@ -193,6 +200,7 @@ export default function Login() {
         user: usuario,
         direccion,
         telefono,
+        nacimiento: nacimiento?.format("YYYY-MM-DD"),
       }),
     }).then((res) => {
       if (res.ok) {
@@ -230,7 +238,7 @@ export default function Login() {
   const width = 250;
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <NavBar />
       <ToastContainer />
       <Grid
@@ -241,7 +249,7 @@ export default function Login() {
         direction="column"
       >
         <Grid item>
-          <Typography sx={{ fontFamily: "VAG Rounded Next" }} variant="h3">
+          <Typography variant="h3">
             Iniciar sesión
           </Typography>
         </Grid>
@@ -262,14 +270,12 @@ export default function Login() {
           </Grid>
           <Grid item>
             <FormControl sx={{ width, mt: 2, maxWidth: "70vw" }}>
-              <Button variant="contained" type="submit" color="secondary">
-                Iniciar sesión
+              <Button variant="contained" type="submit" color="primary">
+                Iniciar Sesión
               </Button>
             </FormControl>
           </Grid>
         </form>
-        <Button onClick={() => setOpenRegister(true)} sx={{ mt: 2 }} > Open modal </Button>
-        <Button onClick={handleOpenOTP} sx={{ mt: 2 }} > Open modal </Button>
       </Grid>
       <Modal
         open={openOTP}
@@ -368,7 +374,20 @@ export default function Login() {
                   />
                 </Grid>
                 <Grid item>
-                  <Button variant="contained" type="submit" color="secondary">
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label="Fecha de nacimiento"
+                      value={nacimiento}
+                      onChange={(newValue) => {
+                        setNacimiento(newValue);
+                      }}
+                      renderInput={(params) => <TextField {...params} />}
+                      className="datePicker"
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item>
+                  <Button variant="contained" type="submit" color="primary">
                     Registrarme
                   </Button>
                 </Grid>
@@ -377,6 +396,6 @@ export default function Login() {
           </Box>
         </Fade>
       </Modal>
-    </>
+    </ThemeProvider>
   );
 }

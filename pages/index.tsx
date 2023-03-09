@@ -1,9 +1,10 @@
-import { Button, Grid, Stack } from "@mui/material";
+import { Button, Grid, Stack, ThemeProvider } from "@mui/material";
 import NavBar from "@components/NavBar";
+import theme from "../theme/theme";
 export default function Index() {
   if (typeof window !== "undefined") document.title = "Nibbin";
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <NavBar />
       <Grid
         container
@@ -19,6 +20,6 @@ export default function Index() {
           <Button variant="outlined">Outlined</Button>
         </Stack>
       </Grid>
-    </>
+    </ThemeProvider>
   );
 }

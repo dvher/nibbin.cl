@@ -1,7 +1,8 @@
-import { Button, Grid, Stack, Typography } from "@mui/material";
+import { Button, Grid, Stack, ThemeProvider, Typography } from "@mui/material";
 import NavBar from "@components/NavBar";
 import ProductComponent from "@components/ProductComponent";
 import { GetServerSideProps } from "next";
+import theme from "../../theme/theme";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   let query = context.query.q as string | null;
@@ -49,7 +50,7 @@ export default function Search({ products, query }: { products: Array<Product> |
   if (typeof window !== "undefined") document.title = `Resultados de búsqueda para ${query} | Tienda`;
 
   if (products === null) return (
-    <>
+    <ThemeProvider theme={theme}>
       <NavBar />
       <Grid
         container
@@ -60,14 +61,14 @@ export default function Search({ products, query }: { products: Array<Product> |
       >
         <Typography variant="h3" sx={{ fontFamily: 'VAG Rounded Next' }}>No se encontraron resultados</Typography>
         <Stack spacing={2} direction="row">
-          <Button variant="contained" color="secondary" href="/" sx={{ fontFamily: 'VAG Rounded Next' }}>Volver al inicio</Button>
+          <Button variant="contained" color="primary" href="/" sx={{ fontFamily: 'VAG Rounded Next' }}>Volver al inicio</Button>
         </Stack>
       </Grid>
-    </>
+    </ThemeProvider>
   );
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <NavBar />
       <Grid
         container
@@ -91,6 +92,6 @@ export default function Search({ products, query }: { products: Array<Product> |
           </Grid>
         </Grid>
       </Grid>
-    </>
+    </ThemeProvider>
   );
 }
