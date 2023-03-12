@@ -292,7 +292,7 @@ export default function Login() {
                 <Typography variant="h5">Código de validación</Typography>
               </Grid>
               <Grid item>
-              <MuiOtpInput validateChar={validateChar} value={otp} onChange={onChangeOTP} length={6} placeholder="-" onComplete={submitOTP} TextFieldsProps={{ placeholder: '-', size: 'small' }} />
+              <MuiOtpInput validateChar={validateChar} value={otp} onChange={onChangeOTP} length={6} onComplete={submitOTP} TextFieldsProps={{ placeholder: '-', size: 'small' }} />
               </Grid>
             </Grid>
           </Box>
