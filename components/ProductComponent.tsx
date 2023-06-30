@@ -40,7 +40,7 @@ export default function ProductComponent({ id, nombre, descripcion, precio, desc
     }
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 345 }} className="card-producto">
             <CardActionArea href={`/product/${id}`}>
                 <CardMedia
                     component="img"
