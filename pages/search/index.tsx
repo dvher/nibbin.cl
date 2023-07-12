@@ -38,6 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 type Product = {
   id: number;
   nombre: string;
+  marca: string;
   descripcion: string;
   precio: number;
   descuento: number;
@@ -86,7 +87,7 @@ export default function Search({ products, query }: { products: Array<Product> |
           <Grid container alignContent="center" justifyContent="center" direction="row" flexGrow={1} spacing={2}>
             {products.map(p => (
               <Grid item xs={"auto"} key={p.id}>
-                <ProductComponent id={p.id} nombre={p.nombre} descripcion={p.descripcion} precio={p.precio} descuento={p.descuento} stock={p.stock} imagen={p.imagen} isfavorite={p.isfavorite} />
+                <ProductComponent id={p.id} nombre={p.nombre} marca={p.marca} descripcion={p.descripcion} precio={p.precio} descuento={p.descuento} stock={p.stock} imagen={p.imagen} isfavorite={p.isfavorite} />
               </Grid>
             ))}
           </Grid>

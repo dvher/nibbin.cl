@@ -11,6 +11,7 @@ let theme = createTheme({
     },
     typography: {
         fontFamily: "VAG Rounded Next, sans-serif",
+        fontSize: 16,
         button: {
             textTransform: "none",
         },

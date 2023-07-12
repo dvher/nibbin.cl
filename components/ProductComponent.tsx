@@ -7,6 +7,7 @@ import { useState } from "react";
 type Product = {
     id: number;
     nombre: string;
+    marca: string;
     descripcion: string;
     precio: number;
     descuento: number;
@@ -15,7 +16,7 @@ type Product = {
     isfavorite: boolean;
 }
 
-export default function ProductComponent({ id, nombre, descripcion, precio, descuento, stock, imagen, isfavorite }: Product) {
+export default function ProductComponent({ id, nombre, marca, descripcion, precio, descuento, stock, imagen, isfavorite }: Product) {
 
     const [favorito, setFavorito] = useState(isfavorite);
 
@@ -49,7 +50,7 @@ export default function ProductComponent({ id, nombre, descripcion, precio, desc
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div" sx={{ fontFamily: 'VAG Rounded Next' }}>
-                        {nombre}
+                        <b>{marca}</b> {nombre}
                     </Typography>
                     <Typography variant="body2" color="text.primary" sx={{ fontFamily: 'VAG Rounded Next' }}>
                         {descripcion}
