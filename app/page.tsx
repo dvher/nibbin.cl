@@ -1,8 +1,14 @@
 import { Button, Grid, Stack, ThemeProvider } from "@mui/material";
 import NavBar from "@components/NavBar";
-import theme from "../theme/theme";
+import theme from "./theme";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Nibbin",
+  description: "Nibbin es una tienda online de productos de animales.",
+}
+
 export default function Index() {
-  if (typeof window !== "undefined") document.title = "Nibbin";
   return (
     <ThemeProvider theme={theme}>
       <NavBar />

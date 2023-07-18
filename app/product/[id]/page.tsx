@@ -1,19 +1,18 @@
 import { Button, Grid, Stack, ThemeProvider, Typography } from "@mui/material";
 import NavBar from "@components/NavBar";
-import theme from "../../../theme/theme";
-import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
+import theme from "../../theme";
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const router = useRouter();
-    const prod_id = router.query.id;
+async function getProduct(id: number) {
+  const res = 0;
 
-    return {
-        props: {},
-    }
+  return res;
 }
 
-export default function Product() {
+export default async function Product({ params }: { params: { id: number} }) {
+  const id = params.id;
+
+  const product = await getProduct(id);
+
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
@@ -22,6 +21,7 @@ export default function Product() {
         height="100vh"
         alignItems="center"
         justifyContent="center"
+        direction="column"
       >
         <Stack
           spacing={2}
@@ -29,7 +29,7 @@ export default function Product() {
           justifyContent="center"
           textAlign="center"
         >
-          <Typography variant="h1">Página no encontrada</Typography>
+          <Typography variant="h3">Página no encontrada</Typography>
           <Typography variant="body1">La página que estás buscando no existe.</Typography>
           <Button variant="contained" href="/" color="primary">Volver al inicio</Button>
         </Stack>

@@ -1,39 +1,7 @@
 import { Button, Grid, Stack, ThemeProvider, Typography } from "@mui/material";
 import NavBar from "@components/NavBar";
 import ProductComponent from "@components/ProductComponent";
-import { GetServerSideProps } from "next";
-import theme from "../../theme/theme";
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  let query = context.query.q as string | null;
-
-  if(!query) return {
-    props: {
-      products: null,
-      query: "",
-    },
-  };
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_ADDR}/searchproducts?q=${query}`);
-
-  if(res.status !== 200) return {
-    props: {
-      products: null,
-      query: "",
-    },
-  };
-
-  const data = await res.json();
-
-  const products = data.products as Product;
-
-  return {
-    props: {
-      products,
-      query,
-    },
-  }
-}
+import theme from "../../../theme";
 
 type Product = {
   id: number;
@@ -47,8 +15,30 @@ type Product = {
   isfavorite: boolean;
 }
 
-export default function Search({ products, query }: { products: Array<Product> | null, query: string }) {
-  if (typeof window !== "undefined") document.title = `Resultados de búsqueda para ${query} | Tienda`;
+export async function generateMetadata({ params }: { params: { query: string } }) {
+  const query = params.query;
+  
+  return {
+    title: `Resultados de búsqueda para "${query}"`,
+  }
+}
+
+async function getProducts(query: string) {
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_ADDR}/search/product/${query}`);
+
+  if(res.status !== 200) return null;
+
+  const data = await res.json();
+
+  const products = data.products as Array<Product>;
+
+  return products;
+}
+
+export default async function Search({ params }: { params: { query: string } }) {
+  const query = params.query;
+  const products = await getProducts(query);
 
   if (products === null) return (
     <ThemeProvider theme={theme}>
@@ -60,7 +50,7 @@ export default function Search({ products, query }: { products: Array<Product> |
         justifyContent="center"
         direction="column"
       >
-        <Typography variant="h3" sx={{ fontFamily: 'VAG Rounded Next' }}>No se encontraron resultados</Typography>
+        <Typography variant="h5" sx={{ fontFamily: 'VAG Rounded Next' }}>No se encontraron resultados</Typography>
         <Stack spacing={2} direction="row">
           <Button variant="contained" color="primary" href="/" sx={{ fontFamily: 'VAG Rounded Next' }}>Volver al inicio</Button>
         </Stack>
@@ -81,7 +71,7 @@ export default function Search({ products, query }: { products: Array<Product> |
       >
         <Grid item xs={0} lg={2} />
         <Grid item xs={4} lg={2} sx={{ marginTop: { xs: 10, lg: 0 } }}>
-          <Typography variant="h3" sx={{ fontFamily: 'VAG Rounded Next' }}>Resultados de búsqueda para "<b>{query}</b>"</Typography>
+          <Typography variant="h5" sx={{ fontFamily: 'VAG Rounded Next' }}>Resultados de búsqueda para "<b>{query}</b>"</Typography>
         </Grid>
         <Grid item xs={8}>
           <Grid container alignContent="center" justifyContent="center" direction="row" flexGrow={1} spacing={2}>

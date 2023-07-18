@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Button,
   Grid,
@@ -10,16 +12,17 @@ import {
   Backdrop,
   ThemeProvider
 } from "@mui/material";
-import theme from '../../theme/theme';
+import theme from '../theme';
 import NavBar from "@components/NavBar";
 import { FormEvent, useState } from "react";
 import { MuiOtpInput } from 'mui-one-time-password-input';
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Dayjs } from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import "dayjs/locale/es";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const style = {
@@ -374,14 +377,13 @@ export default function Login() {
                   />
                 </Grid>
                 <Grid item>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
                     <DatePicker
                       label="Fecha de nacimiento"
                       value={nacimiento}
                       onChange={(newValue) => {
                         setNacimiento(newValue);
                       }}
-                      renderInput={(params) => <TextField {...params} />}
                       className="datePicker"
                     />
                   </LocalizationProvider>

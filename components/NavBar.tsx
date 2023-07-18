@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AppBar,
   Toolbar,
@@ -16,17 +18,27 @@ import {
   ListItemText,
   Drawer,
   Tooltip,
+  SvgIcon,
+  Icon,
 } from "@mui/material";
 import Link from "next/link";
 import MenuIcon from "@mui/icons-material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
+import Image from "next/image";
 import SearchIcon from "@mui/icons-material/Search";
+import NibbinIcon from '../public/nibbin-svg.svg';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState, MouseEvent, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
+
+const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const search = data.get("q");
+  window.location.href = `/search/product/${search}`;
+}
 
 export default function NavBar() {
 
@@ -150,7 +162,7 @@ export default function NavBar() {
         </ListItem>
       </List>
       <Search sx={{ display: { xs: "flex", md: "none" } }}>
-        <form action="search" method="GET">
+        <form action="search" method="GET" onSubmit={handleSubmit}>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -179,8 +191,8 @@ export default function NavBar() {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
+          <Box sx={{ display: { xs: "none", md: "flex"}, mr: 1 }}>  <Link href="/"><Image width={67.43} height={67.43} priority src="/nibbin-svg.svg" alt="nibbin icon" style={{ objectFit: "contain", aspectRatio: 463 / 481 }} /> </Link> </Box>
+          {/* <Typography
             variant="h6"
             noWrap
             component="a"
@@ -196,7 +208,7 @@ export default function NavBar() {
             }}
           >
             Nibbin
-          </Typography>
+          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -229,8 +241,8 @@ export default function NavBar() {
               {drawer}
             </Drawer>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
+          <Box sx={{ display: { xs: "flex", md: "none"} }}> <Link href="/"><Image priority height={60.01} width={60.01} src="/nibbin-svg.svg" alt="nibbin icon" style={{ objectFit: "contain" }} /> </Link> </Box>
+          {/* <Typography
             variant="h5"
             noWrap
             component="a"
@@ -247,7 +259,7 @@ export default function NavBar() {
             }}
           >
             Nibbin
-          </Typography>
+          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map(([page, url]) => (
               <Button
@@ -265,7 +277,7 @@ export default function NavBar() {
             ))}
           </Box>
           <Search sx={{ display: { xs: "none", md: "flex" } }}>
-            <form action="search" method="GET">
+            <form action="search" method="GET" onSubmit={handleSubmit}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>

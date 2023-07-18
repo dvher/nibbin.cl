@@ -1,3 +1,5 @@
+'use client';
+
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, CardActionArea } from "@mui/material";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -41,7 +43,7 @@ export default function ProductComponent({ id, nombre, marca, descripcion, preci
     }
 
     return (
-        <Card sx={{ maxWidth: 345 }} className="card-producto">
+        <Card sx={{ maxWidth: 345, maxHeight: 460, aspectRatio: 3 / 4 }} className="card-producto">
             <CardActionArea href={`/product/${id}`}>
                 <CardMedia
                     component="img"

@@ -38,3 +38,4 @@ next-env.d.ts
 
 public/product/*
 !public/product/.gitkeep
+public/*.svg
